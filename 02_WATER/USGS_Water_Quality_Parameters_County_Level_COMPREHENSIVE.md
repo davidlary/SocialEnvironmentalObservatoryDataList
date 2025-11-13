@@ -1,7 +1,7 @@
 # USGS Water Quality Parameters - Comprehensive County-Level Data Guide
 
-**Version:** 3.0 (November 2025)
-**Last Updated:** November 11, 2025
+**Version:** 3.1 (November 2025)
+**Last Updated:** November 13, 2025
 **Author:** Compiled from USGS NWIS, Water Quality Portal, and dataRetrieval documentation
 
 ---
@@ -32,9 +32,23 @@ The U.S. Geological Survey (USGS) National Water Information System (NWIS) provi
 - **Geographic Coverage:** All 3,143 U.S. counties
 - **Data Sources:** USGS, EPA STORET, USDA (via Water Quality Portal)
 
-### Critical 2024-2025 Updates
+### 🚨 Critical 2024-2025 System Transition 🚨
 
-**IMPORTANT:** NWIS services are being decommissioned in 2025. After March 11, 2024, newer USGS data is primarily available through WQP (Water Quality Portal) services using WQX 3.0 profiles. The dataRetrieval R package has been modernized to work with new USGS Water Data APIs.
+**MAJOR CHANGE:** The legacy USGS NWIS discrete water quality data system was frozen on **March 11, 2024** and is being decommissioned. This is a critical transition affecting all water quality data retrieval:
+
+**What Changed:**
+- **Legacy NWIS site (waterdata.usgs.gov/nwis/qw)**: Frozen March 11, 2024 - no new data
+- **New data location**: Water Quality Portal at **waterqualitydata.us/beta/** (WQX 3.0)
+- **Data format**: Changed from USGS-specific format to international WQX standard
+- **Latest data**: All USGS data collected/analyzed after March 11, 2024 is ONLY available via WQX 3.0
+
+**How to Access 2024-2025 Data:**
+1. **New WQX 3.0 Portal (RECOMMENDED)**: https://waterqualitydata.us/beta/
+2. **Main Water Quality Portal**: https://www.waterqualitydata.us/
+3. **R dataRetrieval package**: Updated to work with new APIs (use latest version)
+4. **Legacy NWIS**: Still accessible for historical data through March 11, 2024
+
+**Years Available:** 1950-2025 (legacy system 1950-March 2024, WQX 3.0 for March 2024-present)
 
 ---
 

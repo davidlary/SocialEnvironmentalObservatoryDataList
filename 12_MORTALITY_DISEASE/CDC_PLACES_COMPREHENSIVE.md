@@ -1,8 +1,8 @@
 # CDC PLACES - COMPREHENSIVE COUNTY-LEVEL HEALTH MEASURES
 
-**Last Updated**: November 2025
+**Last Updated**: November 13, 2025
 **Geographic Level**: County, Census Tract, ZIP Code
-**Temporal Coverage**: 2019-2024 (annual releases)
+**Temporal Coverage**: 2019-2024 (annual releases, 2024 release uses BRFSS 2022 data)
 **Update Frequency**: Annual (typically released in December)
 
 ---

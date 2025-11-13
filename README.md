@@ -409,7 +409,7 @@ Despite limitations, this repository achieves ~**98% coverage** of available ope
 
 **Maintainer:** GetData Project
 **Last Updated:** November 13, 2025
-**Version:** 4.0 - Systematic Disease-Environment Organization
+**Version:** 4.1 - Quarterly Maintenance Update (Q4 2025)
 
 For questions, suggestions for additional data sources, or to report errors:
 - Open an issue in the repository

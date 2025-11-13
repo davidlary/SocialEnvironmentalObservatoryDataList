@@ -3,8 +3,8 @@
 
 **Total Variables:** 43,000+
 **Data Sources:** 200+ authoritative sources
-**Files:** ~120 organized documentation files
-**Version:** 4.0 (November 13, 2025)
+**Files:** 63 comprehensive documentation files
+**Version:** 4.1 (November 13, 2025 - Quarterly Update)
 
 ---
 
@@ -27,7 +27,7 @@
 | [12_MORTALITY_DISEASE](#12-mortality--disease-outcomes) | 11 | 2,500+ | All-cause mortality, cancer, CVD, kidney, etc. |
 | [13_HEALTH_STATUS](#13-health-status--behaviors) | 4 | 150+ | Chronic disease, risk factors, prevention |
 | [14_HEALTHCARE_SYSTEM](#14-healthcare-system) | 6 | 9,000+ | HRSA AHRF (7K), Medicare (500+), hospitals |
-| [15_DEMOGRAPHICS](#15-demographics--population) | 4 | 300+ | Age, sex, race, migration, urban/rural |
+| [15_DEMOGRAPHICS](#15-demographics--population) | 5 | 10,300+ | **NHGIS (10K+)**, Age, sex, race, migration, **🆕 Gridded EIF** |
 | [16_SOCIOECONOMIC](#16-socioeconomic) | 6 | 500+ | Income, employment, education, housing, inequality |
 | [17_SOCIAL_DETERMINANTS](#17-social-determinants) | 6 | 300+ | Vulnerability, social capital, crime, safety net |
 | [18_EDUCATION](#18-education--childcare) | 5 | 400+ | Schools (150+), districts (200+), outcomes |
@@ -39,7 +39,7 @@
 | [24_COMPLETE_VARIABLE_CATALOGS](#24-complete-variable-catalogs-tier-2) | 11 | 27,000 | Exhaustive catalogs for sources >100 variables |
 | [25_PAID_RESTRICTED_DATA](#25-paid--restricted-data) | 3 | 1,000+ | Commercial datasets, restricted-use files |
 
-**TOTAL:** 62 comprehensive files documenting 43,000+ variables from 200+ sources
+**TOTAL:** 63 comprehensive files documenting 43,000+ variables from 200+ sources
 
 ---
 
@@ -262,11 +262,12 @@
 
 ## 15_DEMOGRAPHICS & POPULATION
 
-**300+ variables** | Age, sex, race, migration, urban/rural
+**10,300+ variables** | **⭐ NHGIS (10K+)** priority, age, sex, race, migration, **🆕 Gridded EIF**
 
 | File | Variables | Key Sources |
 |------|-----------|-------------|
-| **POPULATION_AGE_SEX_RACE.md** | 150+ | Census Decennial + ACS + PEP: total population, age groups, sex, race/ethnicity, households |
+| **POPULATION_DEMOGRAPHICS_COMPREHENSIVE.md** | 10,000+ | **⭐ PRIORITY: NHGIS** (389 time series 1790-2024, 1,300+ ACS tables annually), Census, ACS, PEP |
+| **🆕 GRIDDED_EIF_CENSUS_EXPERIMENTAL.md** | 100+ | **NEW 2025:** Census Gridded Environmental Impacts Frame: 0.01-degree grid demographics (age, sex, race, income) + air pollution (CO, O₃), 1999-2024, experimental |
 | **MIGRATION_MOBILITY.md** | 80+ | IRS county-to-county migration flows (1990-2022), ACS geographic mobility, net migration |
 | **URBAN_RURAL.md** | 30+ | USDA ERS Rural-Urban Continuum Codes, Urban Influence Codes, RUCA codes, Census urban/rural |
 | **POPULATION_PROJECTIONS.md** | 50+ | Census population projections, cohort-component methods, fertility/mortality assumptions |

@@ -1,15 +1,15 @@
 # CDC WONDER MORTALITY DATA - COMPREHENSIVE COUNTY-LEVEL DOCUMENTATION
 
-**Last Updated**: November 2025
+**Last Updated**: November 13, 2025
 **Geographic Level**: County (FIPS code)
-**Temporal Coverage**: 1968-2023 (varies by database)
-**Update Frequency**: Annual (typically 11-month lag)
+**Temporal Coverage**: 1968-2023 final (varies by database), 2024 provisional available
+**Update Frequency**: Annual (typically 11-month lag for final data, ~6 month for provisional)
 
 ---
 
 ## EXECUTIVE SUMMARY
 
-CDC WONDER (Wide-ranging Online Data for Epidemiologic Research) provides access to multiple mortality databases with county-level detail. The **Multiple Cause of Death (MCOD)** database is the most comprehensive, containing ALL deaths occurring in the United States with detailed cause-of-death coding using ICD-10 (1999-2023) and ICD-9 (1979-1998).
+CDC WONDER (Wide-ranging Online Data for Epidemiologic Research) provides access to multiple mortality databases with county-level detail. The **Multiple Cause of Death (MCOD)** database is the most comprehensive, containing ALL deaths occurring in the United States with detailed cause-of-death coding using ICD-10 (1999-2023 final, 2024 provisional) and ICD-9 (1979-1998).
 
 **Key Features**:
 - **Complete mortality universe**: ALL deaths in the US, not a sample
@@ -18,7 +18,8 @@ CDC WONDER (Wide-ranging Online Data for Epidemiologic Research) provides access
 - **Demographics**: Age (5-year groups, 10-year groups, single year), sex, race/ethnicity (7 categories), Hispanic origin
 - **County residence**: Decedent's county of residence at time of death
 - **113 Selected Causes**: Standardized cause-of-death groupings used by NCHS
-- **Annual data**: 1999-2023 (ICD-10 era), with 2024 data expected late 2025
+- **Final data**: 1999-2023 (released January 2025)
+- **Provisional data**: 2024 available (as of June 2025, incomplete due to reporting lags)
 
 **Data Suppression**:
 - Counts of 1-9 deaths are suppressed in public-use files for privacy

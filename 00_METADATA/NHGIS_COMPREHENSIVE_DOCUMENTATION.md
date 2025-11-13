@@ -6,7 +6,7 @@
 NHGIS is **THE PREMIER SOURCE** for county-level demographic, social, economic, housing, and agricultural data. It provides **pre-harmonized, preprocessed data** that solves boundary change issues, making it the first choice for longitudinal county-level analysis.
 
 **Coverage:** All 3,143 US Counties
-**Temporal Range:** 1790-2024
+**Temporal Range:** 1790-2024 (ACS 2024 1-year in processing, 2019-2023 5-year available)
 **Total Time Series Tables:** 389
 **Total ACS Tables:** 1,300-1,400+ per year
 **Last Updated:** November 13, 2025
@@ -24,11 +24,13 @@ NHGIS is **THE PREMIER SOURCE** for county-level demographic, social, economic, 
 ### 2. Comprehensive Coverage
 - **Longest time series:** Total Population (1790-2020, 230 years!)
 - **100%-count data:** 1790-2020 Decennial Census
-- **Sample-based data:** 1970-2000 Long Form + 2005-2023 ACS
+- **Sample-based data:** 1970-2000 Long Form + 2005-2023 ACS (2024 1-year in processing)
+- **5-year ACS:** 2019-2023 available (provides estimates for all counties)
 - **All geographic levels:** Nation → State → County → Tract → Block
 
 ### 3. Complete Variable Coverage
-- **1,300+ ACS tables** annually (2005-2023)
+- **1,300+ ACS tables** annually (2005-2023, 2024 in processing)
+- **ACS 5-year estimates:** 2019-2023 available for all counties
 - **Decennial Census:** All summary files (SF1-SF4)
 - **Agriculture Census:** 1840-1959
 - **Vital Statistics:** Births/deaths 1915-2007, marriages/divorces 1867-2010
