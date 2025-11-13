@@ -505,9 +505,87 @@ Complete maintenance documentation is available in the `.maintenance/` directory
 | Update Date | Version | Major Changes |
 |-------------|---------|---------------|
 | 2025-11-13  | 4.0     | Initial comprehensive structure, NHGIS priority, asbestos, beach closures, maintenance framework |
-| [Future]    | 4.1     | [Next quarterly update] |
+| 2025-11-13  | 4.1     | Q4 quarterly update: Census Gridded EIF added, temporal coverage updates, USGS NWIS transition |
+| [Future]    | 4.2     | [Next quarterly update] |
 
-**Next Scheduled Update:** February 2026
+**Next Scheduled Update:** February 2026 (Q1 Quarterly)
+
+---
+
+## 🔧 Maintenance Instructions
+
+### For Repository Maintainers
+
+This repository includes a comprehensive maintenance framework to keep the catalog current.
+
+#### Monthly Quick Check (30-60 minutes)
+
+Perform rapid health checks of the 5 most critical data sources:
+
+```bash
+cd /Users/davidlary/Dropbox/Environments/Code/GetData/SocialEnvironmentalObservatoryDataList
+cat .maintenance/QUICK_CHECK_PROMPT.md
+```
+
+**Copy the entire contents and paste into Claude Code**
+
+The quick check will:
+- Verify NHGIS, CDC WONDER, EPA AQS, USGS NWIS, ERA5 status
+- Test sample URLs for broken links
+- Search for major new data releases
+- Create brief status report in `.maintenance/quick_checks/`
+
+**Recommended schedule:** First week of each month
+
+---
+
+#### Quarterly Comprehensive Update (2-4 hours)
+
+Systematic review and update of all 200+ data sources:
+
+```bash
+cd /Users/davidlary/Dropbox/Environments/Code/GetData/SocialEnvironmentalObservatoryDataList
+cat .maintenance/PERIODIC_UPDATE_PROMPT.md
+```
+
+**Copy the entire contents and paste into Claude Code**
+
+The comprehensive update executes an 8-phase workflow:
+1. **New Data Sources** - Federal/state/international agency releases
+2. **Existing Source Updates** - Temporal coverage, new variables, access methods
+3. **Data Quality & Accuracy** - Link verification, metadata updates, code testing
+4. **Disease-Environment Associations** - Recent epidemiology literature
+5. **Repository Optimization** - File size checks, cross-references, completeness
+6. **Documentation Updates** - MASTER_INDEX, README, metadata files
+7. **Git Documentation** - Comprehensive commit and changelog
+8. **Final Verification** - Consistency checks, statistics, workflow testing
+
+**Recommended schedule:** Quarterly (February, May, August, November)
+
+---
+
+#### Maintenance Documentation
+
+Complete maintenance documentation is available in `.maintenance/`:
+
+- **PERIODIC_UPDATE_PROMPT.md** - Detailed 8-phase quarterly update instructions (400+ lines)
+- **QUICK_CHECK_PROMPT.md** - Monthly rapid health check protocol (140 lines)
+- **README.md** - Maintenance best practices, schedule, troubleshooting (235 lines)
+- **changelogs/** - Version history and comprehensive update summaries
+
+---
+
+#### Recent Maintenance History
+
+**Version 4.1 (November 13, 2025 - Q4 Update):**
+- ✅ Added Census Bureau Gridded Environmental Impacts Frame
+- ✅ Updated temporal coverage: CDC WONDER (2023 final + 2024 provisional), CDC PLACES (2024 BRFSS 2022), NHGIS (2019-2023 5-year ACS), NOAA NCEI (through 2025)
+- ✅ Documented critical USGS NWIS → WQX 3.0 system transition
+- ✅ Verified 3 critical links (NHGIS working, CDC WONDER 502 error, WQP funding lapse)
+- ✅ 1 new source, 6 sources updated, 8 files modified/added
+- ✅ 43,000+ → 43,100+ variables documented
+
+**Full changelog:** `.maintenance/changelogs/CHANGELOG_2025-11-13_Q4_UPDATE.md`
 
 ---
 
