@@ -439,4 +439,76 @@ This systematic catalog and documentation is provided to facilitate environmenta
 4. **Check 24_COMPLETE_VARIABLE_CATALOGS/** for exhaustive listings
 5. **Begin data collection** using code examples provided
 
+---
+
+## 🛠️ How to Maintain Going Forward
+
+This repository includes a comprehensive maintenance framework to keep the catalog current with evolving data sources.
+
+### Monthly Quick Check (30-60 minutes)
+
+Perform a rapid health check of critical data sources:
+
+```bash
+cd /Users/davidlary/Dropbox/Environments/Code/GetData/SocialEnvironmentalObservatoryDataList
+cat .maintenance/QUICK_CHECK_PROMPT.md
+```
+
+**Copy the entire contents and paste into Claude Code**
+
+The quick check will:
+- Verify the 5 most important sources (NHGIS, CDC WONDER, EPA AQS, USGS NWIS, ERA5)
+- Test sample URLs for broken links
+- Search for major new data releases
+- Create a brief status report
+
+**Recommended schedule:** First week of each month
+
+---
+
+### Quarterly Comprehensive Update (2-4 hours)
+
+Perform systematic review and update of all 200+ data sources:
+
+```bash
+cd /Users/davidlary/Dropbox/Environments/Code/GetData/SocialEnvironmentalObservatoryDataList
+cat .maintenance/PERIODIC_UPDATE_PROMPT.md
+```
+
+**Copy the entire contents and paste into Claude Code**
+
+The comprehensive update follows an 8-phase workflow:
+1. **New Data Sources** - Federal/state/international agency releases
+2. **Existing Source Updates** - Temporal coverage, new variables, access methods
+3. **Data Quality & Accuracy** - Link verification, metadata updates, code testing
+4. **Disease-Environment Associations** - Recent epidemiology literature
+5. **Repository Optimization** - File size checks, cross-references, completeness
+6. **Documentation Updates** - MASTER_INDEX, README, metadata files
+7. **Git Documentation** - Comprehensive commit and changelog
+8. **Final Verification** - Consistency checks, statistics, workflow testing
+
+**Recommended schedule:** Quarterly (February, May, August, November)
+
+---
+
+### Maintenance Framework Documentation
+
+Complete maintenance documentation is available in the `.maintenance/` directory:
+
+- **PERIODIC_UPDATE_PROMPT.md** - Detailed 8-phase quarterly update instructions
+- **QUICK_CHECK_PROMPT.md** - Monthly rapid health check protocol
+- **README.md** - Maintenance best practices, schedule, troubleshooting
+- **changelogs/** - Version history and update summaries
+
+### Version History
+
+| Update Date | Version | Major Changes |
+|-------------|---------|---------------|
+| 2025-11-13  | 4.0     | Initial comprehensive structure, NHGIS priority, asbestos, beach closures, maintenance framework |
+| [Future]    | 4.1     | [Next quarterly update] |
+
+**Next Scheduled Update:** February 2026
+
+---
+
 **Happy researching!** 🎉
