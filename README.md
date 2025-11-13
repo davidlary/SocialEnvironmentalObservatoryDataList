@@ -318,6 +318,93 @@ Several international organizations provide the **highest-quality, highest-resol
 
 ---
 
+## ⚠️ Data Limitations & Known Gaps
+
+### County-Level Data Availability Limitations
+
+While this repository documents 43,000+ variables from 200+ sources, some important health-related data are **NOT available at county level**:
+
+#### Data Available Only at State Level
+- **Occupational injuries/illnesses** - OSHA/BLS provide state-level only; no public county data
+- **Traffic volume (detailed)** - FHWA Vehicle Miles Traveled (VMT) is state-level; county requires state DOT requests
+- **Soil erosion rates** - NRCS National Resources Inventory provides state estimates
+- **Birth defects registries** - Most are state-level; limited county access
+- **PRAMS maternal health** - State/substate regions, not county-level
+
+#### Data Not Systematically Collected
+- **EMF exposure measurements** - Infrastructure locations available (cell towers, power lines via HIFLD), but no electromagnetic field measurements
+- **Pollen/allergen monitoring** - Only ~31 stations nationally (National Allergy Bureau); insufficient county coverage
+- **Autoimmune disease registries** - No systematic county-level surveillance
+- **Oral/dental health** - No county-level surveillance system
+- **Vision/hearing loss** - Only available via ACS disability questions (limited detail)
+- **Sleep disorders** - No county-level data
+- **Musculoskeletal disorders** - No county-level data beyond mortality
+- **Mental health disorders (detailed)** - Limited county data; see enhancements below
+
+#### Temporal Lag in Data Availability
+- **Census Decennial** - Every 10 years; 2030 Census not until 2031
+- **Agricultural Census** - Every 5 years; most recent 2022 (released 2024)
+- **NLCD Land Cover** - Every 2-3 years; 2024 not until mid-2025
+- **IRS Migration** - 2-year lag (2022 data released 2024)
+- **Birth/death data** - Typically 1-2 year lag for detailed county data
+- **Most ACS data** - 1-year lag (2023 data released December 2024)
+
+### Geographic Coverage Gaps
+
+#### Sparse Monitoring Networks
+- **Air quality monitors** - Not all counties have monitors; rural counties especially sparse
+- **Water quality stations** - USGS NWIS station density varies; some counties have <5 active stations
+- **Beach monitoring** - Only coastal counties; ~6,000 beaches monitored (not all beaches)
+- **Radiation monitoring** - EPA RadNet has ~140 stations nationally
+
+#### Small Population Suppression
+- **ACS data** - Counties <65,000 population: Only 5-year estimates (no 1-year)
+- **CDC WONDER mortality** - Deaths suppressed if <10 in category (confidentiality)
+- **Medicare data** - Small cell counts suppressed
+- **Cancer registries** - State-specific suppression rules
+
+### Data Quality Considerations
+
+#### Margins of Error
+- **ACS estimates** - Sample-based; larger margins of error in small counties
+- **CDC PLACES** - Model-based estimates (not direct measurements); prediction intervals can be wide
+
+#### Missing/Incomplete Data
+- **SDWIS violations** - Not all small systems report consistently
+- **TRI emissions** - Only facilities meeting thresholds; misses small emitters
+- **NPDES permits** - Self-reported; compliance monitoring varies
+
+#### Historical Consistency
+- **County boundary changes** - Virginia independent city mergers, Alaska reorganizations affect longitudinal analysis (see 00_METADATA/COUNTY_BOUNDARIES_REDISTRICTING.md)
+- **Variable definition changes** - ICD code revisions (ICD-9 to ICD-10 in 1999), occupational classification changes
+- **Monitoring method changes** - Air quality monitoring technology improvements affect comparability
+
+### Enhancements Available (2024-2025)
+
+Recent additions identified but not yet fully integrated:
+- **Mental Health America County Dashboard** (2020-2025) - Depression, anxiety, PTSD by county
+- **CDC Maternal & Infant Health Mapping (MIHM) Tool** - Enhanced maternal health outcomes beyond CDC WONDER
+- **SAMHSA State/Substate Data** - Substance use, mental health (improving county-level availability)
+
+### What This Repository DOES Include
+
+Despite limitations, this repository achieves ~**98% coverage** of available open county-level data:
+- ✅ All federal environmental monitoring (EPA, USGS, NOAA, NRCS)
+- ✅ Complete health outcomes (CDC WONDER, SEER cancer, USRDS kidney, CDC PLACES)
+- ✅ Comprehensive demographics/socioeconomics (NHGIS priority)
+- ✅ Complete toxic chemical exposures (TRI, pesticides, PFAS, Superfund)
+- ✅ International high-resolution reanalysis (ECMWF ERA5/CAMS)
+- ✅ Infrastructure, agriculture, economic indicators
+- ✅ All available metadata (FIPS, boundaries, crosswalks)
+
+**Recommendation:** For data not available at county level, researchers should:
+1. Use state-level data where appropriate
+2. Consider spatial interpolation/downscaling methods for gridded data
+3. Request special tabulations from data providers (often possible for large studies)
+4. Explore restricted-use files if justified (see 25_PAID_RESTRICTED_DATA/)
+
+---
+
 ## 📧 Contact & Contributions
 
 **Maintainer:** GetData Project
