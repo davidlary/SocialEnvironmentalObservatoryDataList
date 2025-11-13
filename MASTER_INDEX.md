@@ -12,7 +12,7 @@
 
 | Directory | Files | Variables | Description |
 |-----------|-------|-----------|-------------|
-| [00_METADATA](#00-metadata) | 4 | Essential | FIPS codes, boundaries, redistricting, crosswalks |
+| [00_METADATA](#00-metadata) | 5 | Essential | **⭐ NHGIS (priority)**, FIPS codes, boundaries, crosswalks |
 | [01_AIR_ATMOSPHERE](#01-air--atmosphere) | 7 | 3,000+ | Criteria pollutants, HAPs, emissions, GHGs, aerosols |
 | [02_WATER](#02-water) | 6 | 1,500+ | Drinking, surface, groundwater quality; hydrology |
 | [03_LAND_SOIL_GEOLOGY](#03-land-soil--geology) | 5 | 500+ | Land cover, soils (227 props), topography, geology |
@@ -49,6 +49,7 @@
 
 | File | Purpose |
 |------|---------|
+| **⭐ NHGIS_COMPREHENSIVE_DOCUMENTATION.md** | **PRIORITY:** Pre-harmonized demographic, social, economic, housing data (1790-2024). 389 time series tables + 1,300+ ACS tables. Use FIRST for ANY demographic/socioeconomic data! |
 | **FIPS_CODES_GEOGRAPHIC_IDENTIFIERS.md** | 5-digit FIPS codes, state/county codes, county names, independent cities, Alaska areas |
 | **COUNTY_BOUNDARIES_REDISTRICTING.md** | Boundary changes, redistricting, merged/split counties, time series handling |
 | **GEOGRAPHIC_CROSSWALKS.md** | ZIP→County, Tract→County, Place→County, CBSA, Congressional Districts, many-to-many relationships |

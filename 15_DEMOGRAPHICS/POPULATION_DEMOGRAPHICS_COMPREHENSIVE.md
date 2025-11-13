@@ -3,7 +3,7 @@
 
 **Coverage:** All 3,143 US Counties
 **Last Updated:** November 13, 2025
-**Total Variables:** 300+ demographic variables
+**Total Variables:** 10,000+ demographic variables (via NHGIS)
 
 ---
 
@@ -18,7 +18,38 @@ This comprehensive documentation covers all county-level population and demograp
 
 ---
 
+## ⭐⭐⭐ PRIORITY: USE NHGIS FIRST ⭐⭐⭐
+
+**CRITICAL:** For ALL demographic data, use **IPUMS NHGIS** as your PRIMARY source before considering individual Census Bureau sources.
+
+### Why NHGIS is Essential:
+1. **Pre-harmonized data** across boundary changes (no manual harmonization needed)
+2. **389 time series tables** ready for longitudinal analysis (1790-2024)
+3. **1,300+ ACS tables** with complete variable coverage
+4. **Single download** for all years (vs. multiple Census Bureau files)
+5. **Consistent FIPS codes** and variable definitions across decades
+6. **Production-ready format** with comprehensive documentation
+
+### Quick Start with NHGIS:
+```r
+# See 00_METADATA/NHGIS_COMPREHENSIVE_DOCUMENTATION.md for complete details
+
+library(ipumsr)
+set_ipums_api_key("YOUR_KEY")
+
+# Download time series for total population, age, sex, race (1790-2020)
+# Pre-harmonized across all county boundary changes!
+```
+
+**📖 Complete NHGIS Documentation:** `00_METADATA/NHGIS_COMPREHENSIVE_DOCUMENTATION.md`
+
+**When to use sources below:** Only if you need variables NOT available in NHGIS, or if you need more recent data than latest NHGIS release.
+
+---
+
 ## 1️⃣ CENSUS DECENNIAL CENSUS
+
+**⚠️ NOTE:** NHGIS provides all Decennial Census data in easier-to-use format. Use NHGIS instead of direct Census Bureau downloads.
 
 ### Overview
 Complete population count every 10 years mandated by US Constitution.
@@ -82,6 +113,8 @@ pop_age <- get_decennial(
 ---
 
 ## 2️⃣ CENSUS AMERICAN COMMUNITY SURVEY (ACS)
+
+**⚠️ NOTE:** NHGIS provides all ACS data (1,300+ tables) in easier-to-use format with consistent variable naming. Use NHGIS instead of direct Census Bureau API.
 
 ### Overview
 Annual survey providing detailed demographic, social, economic, and housing estimates.
@@ -161,6 +194,8 @@ df['FIPS'] = df['state'] + df['county']
 ---
 
 ## 3️⃣ CENSUS POPULATION ESTIMATES PROGRAM (PEP)
+
+**⚠️ NOTE:** For historical comparisons, use NHGIS time series tables which include decennial benchmarks. Use PEP only for most recent intercensal years not yet in NHGIS.
 
 ### Overview
 Annual population estimates for intercensal years.

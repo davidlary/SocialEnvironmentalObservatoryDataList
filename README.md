@@ -16,6 +16,27 @@ This repository contains a **comprehensive, systematically organized catalog of 
 
 This data list documents **every available variable** from authoritative open data sources, organized into 25 thematic domains:
 
+### ⭐ Priority Data Source: IPUMS NHGIS
+
+**NHGIS should be your FIRST STOP** for any demographic, social, economic, or housing data:
+
+- **389 pre-harmonized time series tables** (1790-2024) solving boundary change issues automatically
+- **1,300+ ACS tables** annually with comprehensive socioeconomic variables
+- **10,000+ variables** covering population, households, education, income, poverty, employment, housing
+- **Single standardized format** - no manual harmonization needed
+- **Complete documentation:** `00_METADATA/NHGIS_COMPREHENSIVE_DOCUMENTATION.md`
+
+**Key NHGIS Variables:**
+- Population (total, age, sex, race, ethnicity, urban/rural)
+- Households & families (type, size, composition)
+- Education (attainment, enrollment)
+- Economic (employment, occupation, industry, income, poverty)
+- Housing (tenure, value, rent, conditions)
+- Migration, citizenship, language, ancestry
+- Veteran status, disability status, health insurance
+- Agriculture Census (1840-1959)
+- Vital statistics (births, deaths, marriages, divorces)
+
 ### Environmental Exposures
 - **Air Quality & Atmospheric Chemistry** - Criteria pollutants, toxic air pollutants, emissions, greenhouse gases, aerosol composition
 - **Water Quality** - Drinking water, surface water, groundwater quality parameters (1,300+ parameters)
@@ -82,11 +103,13 @@ This data list documents **every available variable** from authoritative open da
 
 ### For Researchers Building County-Level Datasets
 
-1. **Start here:** Read `MASTER_INDEX.md` for complete navigation
-2. **Identify domains:** Browse by thematic category (01-23)
-3. **Access metadata:** Read `00_METADATA/` for FIPS codes, county boundaries, redistricting, crosswalks
-4. **Find variables:** Use Tier 1 files for overview, Tier 2 for complete catalogs
-5. **Get code:** Each file includes production-ready R/Python code for data access
+1. **⭐ PRIORITY:** Read `00_METADATA/NHGIS_COMPREHENSIVE_DOCUMENTATION.md` - Use NHGIS for ALL demographic, social, economic, housing variables
+2. **Navigation:** Read `MASTER_INDEX.md` for complete navigation
+3. **Metadata:** Read `00_METADATA/` for FIPS codes, county boundaries, redistricting, crosswalks
+4. **Environmental variables:** Browse by thematic category (01-08, 21-23)
+5. **Health outcomes:** Browse directories 11-14 for disease outcomes and healthcare
+6. **Find variables:** Use Tier 1 files for overview, Tier 2 for complete catalogs
+7. **Get code:** Each file includes production-ready R/Python code for data access
 
 ### For Specific Research Questions
 
