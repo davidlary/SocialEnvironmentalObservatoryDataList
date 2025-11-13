@@ -1186,6 +1186,292 @@ county_mining_health <- county_mines %>%
 
 ---
 
+### 6B. USGS ASBESTOS OCCURRENCE DATABASE ⭐⭐⭐⭐⭐
+
+**PRIORITY RANK: HIGHEST for Asbestos-Related Disease Risk**
+
+#### **Overview**
+
+**What:** Comprehensive database of natural asbestos occurrences, former mines, and exploration sites
+**Who:** US Geological Survey Mineral Resources Program
+**Resolution:** Point locations (876 documented sites)
+**Coverage:** 34 of 48 contiguous states with reported asbestos occurrences
+**Temporal:** Historical (1800s-2024)
+**Update Frequency:** Periodic updates as new occurrences identified
+
+**Why Asbestos Matters - Critical Health Impacts:**
+
+**Asbestos is ONE OF THE MOST DANGEROUS naturally occurring minerals:**
+
+| Health Outcome | Latency Period | Evidence Strength | Exposure Source |
+|----------------|----------------|-------------------|-----------------|
+| **Mesothelioma** (pleural, peritoneal) | 20-50 years | ⭐⭐⭐⭐⭐ DEFINITIVE | Occupational, environmental, natural |
+| **Lung Cancer** | 15-35 years | ⭐⭐⭐⭐⭐ DEFINITIVE | Synergistic with smoking |
+| **Asbestosis** (pulmonary fibrosis) | 10-40 years | ⭐⭐⭐⭐⭐ DEFINITIVE | High-dose occupational |
+| **Laryngeal Cancer** | 15-30 years | ⭐⭐⭐⭐ STRONG | Occupational |
+| **Ovarian Cancer** | 20-40 years | ⭐⭐⭐ PROBABLE | Environmental, occupational |
+| **Other Cancers** (stomach, colorectal) | Variable | ⭐⭐ SUGGESTIVE | Environmental |
+
+**WHO IARC Classification:** Group 1 Carcinogen (all forms of asbestos)
+**EPA Classification:** Known human carcinogen
+**NIOSH:** No safe exposure level identified
+
+**Critical Exposure Pathways:**
+1. **Occupational:** Mining, milling, construction, shipbuilding, brake repair
+2. **Para-occupational:** Take-home exposure (family members of workers)
+3. **Environmental:** Natural deposits, unpaved roads, disturbed soil
+4. **Consumer products:** Historical building materials (pre-1980)
+
+**Geographic Risk Factors:**
+- Counties with natural asbestos deposits (serpentinite rock formations)
+- Counties with former asbestos mines (California, Montana, Vermont)
+- Counties with asbestos-containing ultramafic rocks
+- Urban areas with historical asbestos product manufacturing
+
+#### **Variables Available**
+
+**Site Classification (876 total sites):**
+1. **Former asbestos mines** (142 sites) - Highest risk, legacy contamination
+2. **Former exploration prospects** (222 sites) - Disturbed areas, potential exposure
+3. **Natural occurrences** (512 sites) - Environmental asbestos in rock/soil
+
+**Asbestos Mineralogy (6 regulated forms):**
+4. **Chrysotile** (white asbestos) - Most common, 90% of historical use
+5. **Crocidolite** (blue asbestos) - Most carcinogenic
+6. **Amosite** (brown asbestos) - Highly carcinogenic
+7. **Tremolite** - Highly toxic, naturally occurring
+8. **Actinolite** - Naturally occurring in metamorphic rocks
+9. **Anthophyllite** - Rare, naturally occurring
+
+**Geologic Setting:**
+10. **Serpentinite bedrock** - Primary natural asbestos source
+11. **Ultramafic rocks** - Host rock for asbestos minerals
+12. **Metamorphic complexes** - Tremolite/actinolite occurrence
+
+**Derived County-Level Metrics:**
+13. **Asbestos site count** - Total sites per county
+14. **Former mine count** - Highest risk sites
+15. **Natural occurrence count** - Environmental exposure potential
+16. **Asbestos density** - Sites per 1,000 km²
+17. **Distance to nearest asbestos site** - Exposure proximity (km)
+18. **Asbestos risk score** - Weighted by site type and mineralogy
+19. **Population within 5km of asbestos sites** - Environmental exposure population
+20. **Serpentinite outcrop area** - % county with asbestos-bearing rock
+
+#### **Data Access**
+
+**Primary Portal:**
+- **URL:** https://mrdata.usgs.gov/asbestos/
+- **Interactive Map:** Web-based viewer with site details
+- **Format:** Shapefile, CSV, KML, GeoJSON
+
+**Download Options:**
+
+```r
+library(sf)
+library(httr)
+library(tidyverse)
+
+# Download USGS Asbestos Occurrence shapefile
+url <- "https://mrdata.usgs.gov/asbestos/asbestos.zip"
+download.file(url, "asbestos.zip")
+unzip("asbestos.zip")
+
+# Read asbestos sites
+asbestos <- st_read("asbestos.shp")
+
+# Load county boundaries
+counties <- st_read("tl_2020_us_county.shp") %>%
+  st_transform(st_crs(asbestos))
+
+# Spatial join: Count asbestos sites per county
+county_asbestos <- st_join(counties, asbestos) %>%
+  group_by(GEOID, NAME) %>%
+  summarize(
+    # Site counts by type
+    total_asbestos_sites = n(),
+    former_mines = sum(site_type == "Mine", na.rm = TRUE),
+    prospects = sum(site_type == "Prospect", na.rm = TRUE),
+    natural_occurrences = sum(site_type == "Occurrence", na.rm = TRUE),
+
+    # By mineralogy
+    chrysotile_sites = sum(grepl("Chrysotile", mineralogy), na.rm = TRUE),
+    crocidolite_sites = sum(grepl("Crocidolite", mineralogy), na.rm = TRUE),
+    tremolite_sites = sum(grepl("Tremolite", mineralogy), na.rm = TRUE),
+
+    # Calculate area
+    county_area_km2 = as.numeric(st_area(.)) / 1e6,
+    .groups = "drop"
+  ) %>%
+  mutate(
+    # Density metric
+    asbestos_density = total_asbestos_sites / county_area_km2 * 1000, # per 1000 km²
+
+    # Risk score (mines weighted highest)
+    asbestos_risk_score = (former_mines * 5) + (prospects * 2) + (natural_occurrences * 1),
+
+    # High risk flag
+    high_asbestos_risk = asbestos_risk_score > 10 | former_mines > 0
+  )
+```
+
+**Python Code:**
+
+```python
+import geopandas as gpd
+import pandas as pd
+
+# Read asbestos occurrence data
+asbestos = gpd.read_file("https://mrdata.usgs.gov/asbestos/asbestos.zip")
+
+# Read county boundaries
+counties = gpd.read_file("tl_2020_us_county.shp")
+
+# Spatial join
+county_asbestos = gpd.sjoin(counties, asbestos, how='left', predicate='contains')
+
+# Aggregate to county level
+county_summary = county_asbestos.groupby(['GEOID', 'NAME']).agg({
+    'site_type': ['count', lambda x: (x == 'Mine').sum(),
+                          lambda x: (x == 'Prospect').sum(),
+                          lambda x: (x == 'Occurrence').sum()],
+    'mineralogy': lambda x: x.str.contains('Chrysotile').sum()
+}).reset_index()
+
+# Calculate density
+county_summary['area_km2'] = counties.to_crs(epsg=5070).area / 1e6
+county_summary['asbestos_density'] = county_summary['site_count'] / county_summary['area_km2']
+```
+
+#### **WMS/WFS Services**
+
+```r
+# Access via Web Map Service
+library(leaflet)
+
+leaflet() %>%
+  addTiles() %>%
+  addWMSTiles(
+    baseUrl = "https://mrdata.usgs.gov/services/asbestos",
+    layers = "asbestos",
+    options = WMSTileOptions(format = "image/png", transparent = TRUE)
+  )
+```
+
+#### **Health Outcome Analysis**
+
+**Expected Mesothelioma Associations:**
+
+```r
+# Merge with CDC mortality data (ICD-10: C45 mesothelioma)
+library(tidycensus)
+
+# Get county population for rate calculation
+county_pop <- get_estimates(geography = "county",
+                            product = "population",
+                            year = 2020)
+
+# Mesothelioma mortality from CDC WONDER (see 12_MORTALITY_DISEASE/)
+mesothelioma <- read_csv("cdc_wonder_mesothelioma_C45.csv")
+
+# Join with asbestos exposure
+asbestos_health <- county_asbestos %>%
+  left_join(county_pop, by = "GEOID") %>%
+  left_join(mesothelioma, by = "GEOID") %>%
+  mutate(
+    # Age-standardized mortality rate per 100,000
+    mesothelioma_rate = (deaths / population) * 100000,
+
+    # Exposure categories
+    exposure_category = case_when(
+      former_mines > 0 ~ "High (Former Mine)",
+      asbestos_risk_score > 5 ~ "Medium (Multiple Sites)",
+      total_asbestos_sites > 0 ~ "Low (Natural Occurrence)",
+      TRUE ~ "Background"
+    )
+  )
+
+# Analyze exposure-response
+asbestos_health %>%
+  group_by(exposure_category) %>%
+  summarize(
+    counties = n(),
+    mean_mesothelioma_rate = mean(mesothelioma_rate, na.rm = TRUE),
+    median_mesothelioma_rate = median(mesothelioma_rate, na.rm = TRUE)
+  )
+```
+
+#### **High-Risk States**
+
+**States with Highest Asbestos Occurrence Density:**
+1. **California** - 180+ sites (serpentinite belt, former mines)
+2. **Montana** - Libby vermiculite mine (1,000s of deaths)
+3. **Vermont** - Natural asbestos in bedrock
+4. **North Carolina** - Ultramafic rocks
+5. **Pennsylvania** - Historical mining, natural deposits
+6. **Arizona** - Copper mines with asbestos
+7. **New York** - Historical mines, natural deposits
+8. **Maryland** - Serpentinite formations
+
+**Sentinel Contamination Events:**
+- **Libby, Montana** (Lincoln County): Vermiculite mine → 400+ deaths, 3,000+ affected
+- **Ambler, Pennsylvania** (Montgomery County): Manufacturing facilities → elevated mesothelioma
+- **Clear Creek, California** (San Benito County): Natural deposits → environmental exposure
+
+#### **Critical Research Applications**
+
+**Use Asbestos Data For:**
+1. **Mesothelioma clustering analysis** - Identify high-risk counties
+2. **Lung cancer risk** - Combined with smoking prevalence
+3. **Environmental justice** - Exposure disparities by race/income
+4. **Occupational health** - Mining/construction employment overlap
+5. **Latency studies** - Historical mining → current disease burden
+6. **Natural hazard mapping** - Counties with disturbed serpentinite soils
+
+**Data Linkage Opportunities:**
+- CDC WONDER mesothelioma mortality (ICD-10: C45)
+- SEER cancer registry (if available)
+- NIOSH occupational exposure surveys
+- Historical mining employment data
+- Serpentinite bedrock maps (USGS state geology)
+
+#### **Data Limitations**
+
+⚠️ **Important Caveats:**
+1. **Occurrence vs. Exposure:** Site presence doesn't equal population exposure
+2. **Historical data:** Some sites may be reclaimed or remediated
+3. **Incomplete inventory:** Natural occurrences likely underreported
+4. **No exposure measurements:** Database documents locations, not airborne fiber concentrations
+5. **Latency period:** Current disease reflects exposures 20-50 years ago
+
+**Supplementary Data Needed:**
+- EPA Superfund asbestos sites (separate database)
+- OSHA asbestos exposure monitoring (workplace-specific)
+- State environmental health asbestos programs
+- Building materials data (pre-1980 construction)
+
+#### **Priority Variables for Health Studies**
+
+**Tier 1 (Essential):**
+1. Former asbestos mine count
+2. Total asbestos site count
+3. Asbestos risk score
+4. Population within 5km of sites
+
+**Tier 2 (Enhanced):**
+5. Asbestos site density (per 1,000 km²)
+6. Mineralogy type (crocidolite = highest risk)
+7. Distance to nearest site
+8. Serpentinite bedrock presence
+
+**Tier 3 (Advanced):**
+9. Historical mining employment (Census/NHGIS)
+10. Unpaved road density in asbestos areas
+11. Wind erosion potential (dust exposure)
+12. Construction industry employment (NHGIS/CBP)
+
+---
+
 ## PART 3: SOILS
 
 ### 7. NRCS SSURGO/gSSURGO SOIL SURVEYS ⭐⭐⭐⭐⭐
