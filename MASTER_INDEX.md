@@ -12,10 +12,10 @@
 
 | Directory | Files | Variables | Description |
 |-----------|-------|-----------|-------------|
-| [00_METADATA](#00-metadata) | 5 | Essential | **⭐ NHGIS (priority)**, FIPS codes, boundaries, crosswalks |
-| [01_AIR_ATMOSPHERE](#01-air--atmosphere) | 7 | 3,000+ | Criteria pollutants, HAPs, emissions, GHGs, aerosols |
-| [02_WATER](#02-water) | 6 | 1,500+ | Drinking, surface, groundwater quality; hydrology |
-| [03_LAND_SOIL_GEOLOGY](#03-land-soil--geology) | 5 | 500+ | Land cover, soils (227 props), topography, geology |
+| [00_METADATA](#00-metadata) | 6 | Essential | **⭐ NHGIS (priority)**, FIPS codes, boundaries, crosswalks, schedules |
+| [01_AIR_ATMOSPHERE](#01-air--atmosphere) | 2 | 3,000+ | Criteria pollutants, HAPs, emissions, GHGs, aerosols |
+| [02_WATER](#02-water) | 2 | 1,600+ | Water quality (1,300+ params), drinking water, **beach closures**, Superfund, UV |
+| [03_LAND_SOIL_GEOLOGY](#03-land-soil--geology) | 3 | 600+ | Land cover, soils (227), topography, geology, **asbestos (876 sites)**, hydrology |
 | [04_TOXIC_CHEMICALS](#04-toxic-chemicals) | 6 | 2,000+ | TRI (799), pesticides (650), Superfund, PFAS, lead |
 | [05_RADIATION](#05-radiation) | 3 | 50+ | Radon, UV, nuclear facility proximity |
 | [06_CLIMATE_WEATHER](#06-climate--weather) | 6 | 800+ | Temperature, precipitation, extremes, drought |
@@ -39,7 +39,7 @@
 | [24_COMPLETE_VARIABLE_CATALOGS](#24-complete-variable-catalogs-tier-2) | 11 | 27,000 | Exhaustive catalogs for sources >100 variables |
 | [25_PAID_RESTRICTED_DATA](#25-paid--restricted-data) | 3 | 1,000+ | Commercial datasets, restricted-use files |
 
-**TOTAL:** ~120 files documenting 43,000+ variables from 200+ sources
+**TOTAL:** 62 comprehensive files documenting 43,000+ variables from 200+ sources
 
 ---
 
@@ -53,6 +53,7 @@
 | **FIPS_CODES_GEOGRAPHIC_IDENTIFIERS.md** | 5-digit FIPS codes, state/county codes, county names, independent cities, Alaska areas |
 | **COUNTY_BOUNDARIES_REDISTRICTING.md** | Boundary changes, redistricting, merged/split counties, time series handling |
 | **GEOGRAPHIC_CROSSWALKS.md** | ZIP→County, Tract→County, Place→County, CBSA, Congressional Districts, many-to-many relationships |
+| **METADATA_FIPS_GEOGRAPHIC_CROSSWALKS.md** | Additional crosswalk reference and geographic identifier details |
 | **TEMPORAL_COVERAGE_UPDATE_SCHEDULE.md** | Update frequency, release schedules, historical availability by source |
 
 ---
@@ -61,44 +62,39 @@
 
 **3,000+ variables** | Criteria pollutants, toxic air, emissions, GHGs, aerosol composition
 
-| File | Variables | Key Sources |
-|------|-----------|-------------|
-| **CRITERIA_AIR_POLLUTANTS.md** | 400+ | EPA AQS monitors: PM2.5, PM10, O3, NO2, SO2, CO, Pb (1980-present) |
-| **TOXIC_AIR_POLLUTANTS.md** | 200+ | EPA AQS HAPs monitoring: benzene, formaldehyde, 1,3-butadiene, VOCs |
-| **EMISSIONS_INVENTORIES.md** | 1,000+ | EPA NEI (200+ pollutants, 1990-present triennial), CEMS hourly (1995-present), TRI air releases |
-| **AEROSOL_COMPOSITION.md** | 50+ | IMPROVE (EC, OC, sulfates, nitrates 1988-present), CSN, CASTNET |
-| **GREENHOUSE_GASES.md** | 30+ | EPA GHGRP, CEMS CO2, NASA/NOAA atmospheric monitoring |
-| **WILDFIRE_SMOKE.md** | 20+ | NOAA HMS smoke plumes (2005-present daily), PM2.5 wildfire attribution |
-| **ATMOSPHERIC_DEPOSITION.md** | 40+ | NADP wet deposition (sulfate, nitrate, ammonium, pH, mercury) |
+**Note:** These 2 comprehensive files consolidate all air quality data sources
+
+| File | Variables | Key Sources Documented |
+|------|-----------|------------------------|
+| **TRI_COMPREHENSIVE_DOCUMENTATION.md** | 1,000+ | EPA TRI 799 chemicals, facility releases by medium (air/water/land), 1988-present |
+| **ATMOSPHERIC_EMISSIONS_CHEMISTRY_COMPREHENSIVE.md** | 2,000+ | EPA AQS (PM2.5, PM10, O3, NO2, SO2, CO, HAPs), EPA NEI (200+ pollutants), CEMS hourly, IMPROVE aerosols, GHGs, wildfire smoke (NOAA HMS), NADP deposition |
 
 ---
 
 ## 02_WATER
 
-**1,500+ variables** | Drinking, surface, groundwater quality; hydrology
+**1,600+ variables** | Drinking, surface, groundwater quality; **beach closures**; hydrology
 
-| File | Variables | Key Sources |
-|------|-----------|-------------|
-| **DRINKING_WATER_QUALITY.md** | 200+ | EPA SDWIS violations + systems (1993-present): lead, arsenic, PFAS (UCMR5), nitrates, disinfection byproducts |
-| **SURFACE_WATER_QUALITY.md** | 800+ | USGS NWIS 1,300+ parameters: physical (temp, flow, turbidity), chemical (major ions, nutrients, metals, organics) |
-| **GROUNDWATER_QUALITY.md** | 300+ | USGS NWIS groundwater sites, NAWQA studies, aquifer quality assessments |
-| **WATER_QUANTITY_HYDROLOGY.md** | 100+ | USGS NWIS streamflow (1901-present), groundwater levels, water use |
-| **HARMFUL_ALGAL_BLOOMS.md** | 25+ | EPA CyAN freshwater (2016-present), NOAA HABs coastal (2000-present) |
-| **WATERSHEDS_WATER_INFRASTRUCTURE.md** | 50+ | USGS HUC boundaries, WBD characteristics, USACE dams (91K+), wastewater treatment plants |
+**Note:** These 2 comprehensive files consolidate all water quality data sources
+
+| File | Variables | Key Sources Documented |
+|------|-----------|------------------------|
+| **USGS_Water_Quality_Parameters_County_Level_COMPREHENSIVE.md** | 1,300+ | USGS NWIS 1,300+ parameters (physical, chemical, biological), surface/groundwater, streamflow (1901+), HABs, watersheds, infrastructure |
+| **UV_WATER_SUPERFUND_COMPREHENSIVE.md** | 300+ | EPA SDWIS drinking water (lead, arsenic, PFAS, nitrates), **EPA BEACON beach closures (6,000+ beaches, 2000-2024)**, EPA Superfund/NPL sites (1,343), NCI UV radiation (1961-2024) |
 
 ---
 
 ## 03_LAND, SOIL & GEOLOGY
 
-**500+ variables** | High-resolution rasters require county aggregation
+**600+ variables** | High-resolution rasters require county aggregation; **asbestos occurrence**
 
-| File | Variables | Key Sources |
-|------|-----------|-------------|
-| **LAND_COVER_LAND_USE.md** | 30+ | NLCD 30m* 16 classes (2001-2021, 9 epochs), change statistics, impervious surface |
-| **SOIL_PROPERTIES.md** | 227 | NRCS SSURGO 10m*: physical (texture, depth, bulk density), chemical (pH, CEC, salinity), water (AWC, permeability), interpretations |
-| **TOPOGRAPHY.md** | 30+ | USGS 3DEP 30m* DEM, slope, aspect, elevation derivatives, terrain ruggedness |
-| **GEOLOGY_LITHOLOGY.md** | 50+ | USGS geologic maps, lithology, mineral resources, heavy metals, radon potential |
-| **KARST_GROUNDWATER_VULNERABILITY.md** | 20+ | USGS karst mapping, sinkholes, springs, groundwater vulnerability |
+**Note:** These 3 comprehensive files consolidate all land/soil/geology data sources
+
+| File | Variables | Key Sources Documented |
+|------|-----------|------------------------|
+| **TOPOGRAPHY_GEOLOGY_SOILS_COMPREHENSIVE.md** | 350+ | USGS 3DEP 30m* DEM (elevation, slope, aspect, 25 derived metrics), NRCS SSURGO 10m* (227 soil properties), USGS geologic maps, **USGS Asbestos Occurrence (876 sites: 142 mines, 222 prospects, 512 natural)**, USGS Mineral Resources, USGS Karst mapping |
+| **NLCD_NOAA_STORMS_COMPREHENSIVE_DOCUMENTATION.md** | 150+ | NLCD 30m* land cover (16 classes, 2001-2021), tree canopy, impervious surface, NOAA Storm Events (48 types, 1950+) |
+| **HYDROLOGY_WETLANDS_FLOODPLAINS_COMPREHENSIVE.md** | 100+ | USGS HUC watersheds, USFWS National Wetlands Inventory, FEMA flood zones, stream networks, hydrologic characteristics |
 
 *High-resolution raster - requires county aggregation (code examples provided)
 
