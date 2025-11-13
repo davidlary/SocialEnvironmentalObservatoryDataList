@@ -645,6 +645,243 @@ county_summary <- county_nitrate %>%
 
 ---
 
+## PART 2B: RECREATIONAL/BEACH WATER QUALITY
+
+### Health Impacts
+
+**Waterborne Recreational Illness:**
+- **Gastrointestinal illness** - Diarrhea, vomiting, nausea (most common)
+- **Skin infections** - Rashes, dermatitis
+- **Eye/ear/respiratory infections** - Conjunctivitis, otitis, sinusitis
+- **Wound infections** - Vibrio vulnificus (potentially fatal)
+
+**Risk Factors:** Fecal contamination (bacteria), harmful algal blooms (HABs), chemical pollution, stormwater runoff
+
+**Affected Population:** ~90 million US beachgoers annually; coastal counties
+
+---
+
+### Source 5B: EPA BEACON - Beach Water Quality & Closures
+
+**Official Name:** Beach Advisory and Closing Online Notification (BEACON 2.0)
+**Status:** ✅ NATIONAL BEACH MONITORING SYSTEM (2000-present, 6,000+ beaches)
+
+#### Overview
+
+EPA BEACON tracks beach water quality monitoring, advisories, and closures at approximately 6,000 beaches in coastal and Great Lakes counties. Data reported by states, territories, and tribes to comply with the BEACH Act.
+
+#### Coverage
+
+- **Geographic:** Coastal counties (Atlantic, Pacific, Gulf of Mexico, Great Lakes, selected inland waters)
+- **Beaches:** ~6,000 monitored beaches
+- **Temporal:** 2000-present (24+ years)
+- **Update Frequency:** Annual reporting (states report by January for prior year)
+
+#### Variables Available
+
+**Beach Characteristics:**
+1. Beach name, location (lat/lon), county FIPS
+2. Beach type (ocean, estuary, Great Lakes, freshwater lake, river)
+3. Beach length (miles)
+4. Season dates (typical swimming season)
+5. Monitoring frequency (days per week)
+
+**Water Quality Monitoring:**
+6. **E. coli counts** (CFU/100mL) - freshwater beaches
+7. **Enterococci counts** (CFU/100mL) - marine/estuary beaches
+8. **Sampling dates** - when water samples collected
+9. **Exceedances** - samples exceeding EPA criteria (E. coli >235, Enterococci >70)
+
+**Advisories & Closures:**
+10. **Advisory days** - Beach open but swimming not recommended
+11. **Closure days** - Beach closed to swimming
+12. **Reason for advisory/closure** - Bacteria, HABs, sewage, stormwater, unknown
+13. **Duration** - Days beach was under advisory/closed
+14. **Total impacted beach days** - Sum of advisory + closure days
+
+**Derived County-Level Metrics:**
+15. **Number of beaches monitored**
+16. **% beaches with advisories** - Beaches that had ≥1 advisory
+17. **% beaches with closures** - Beaches that had ≥1 closure
+18. **Mean advisory days per beach**
+19. **Total beach-days closed** - Sum across all county beaches
+20. **Monitoring intensity** - Samples per beach per season
+
+#### Data Access
+
+**BEACON 2.0 Portal:**
+- **URL:** https://beacon.epa.gov/ords/beacon2/r/beacon_apex/beacon2
+- **Interactive Map:** Find beaches by location
+- **Reports:** Generate custom reports by year, state, county
+- **Download:** CSV export available
+
+**Access Method:**
+
+```r
+# Note: BEACON 2.0 uses web interface; no direct API documented
+# Manual download steps:
+# 1. Visit https://beacon.epa.gov/
+# 2. Navigate to "Reports" tab
+# 3. Select year range, geography (state/county)
+# 4. Generate report
+# 5. Download CSV
+
+library(tidyverse)
+
+# Example: After downloading BEACON CSV file
+beacon <- read_csv("beacon_download_2023.csv")
+
+# Aggregate to county level
+county_beach <- beacon %>%
+  group_by(State, County, FIPS) %>%
+  summarize(
+    beaches_monitored = n_distinct(Beach_ID),
+    total_samples = sum(Sample_Count, na.rm = TRUE),
+    exceedance_samples = sum(Exceedances, na.rm = TRUE),
+    advisory_days = sum(Advisory_Days, na.rm = TRUE),
+    closure_days = sum(Closure_Days, na.rm = TRUE),
+
+    # Derived
+    exceedance_rate = exceedance_samples / total_samples * 100,
+    impacted_beach_days = advisory_days + closure_days,
+    pct_beaches_advisory = sum(Advisory_Days > 0) / n() * 100,
+    pct_beaches_closure = sum(Closure_Days > 0) / n() * 100,
+
+    .groups = "drop"
+  )
+```
+
+**Python Code:**
+
+```python
+import pandas as pd
+
+# Read BEACON data (after manual download from web portal)
+beacon = pd.read_csv("beacon_download_2023.csv")
+
+# Aggregate to county
+county_beach = beacon.groupby(['State', 'County', 'FIPS']).agg({
+    'Beach_ID': 'nunique',
+    'Sample_Count': 'sum',
+    'Exceedances': 'sum',
+    'Advisory_Days': 'sum',
+    'Closure_Days': 'sum'
+}).rename(columns={'Beach_ID': 'beaches_monitored'})
+
+# Calculate rates
+county_beach['exceedance_rate'] = (county_beach['Exceedances'] /
+                                    county_beach['Sample_Count'] * 100)
+county_beach['impacted_beach_days'] = (county_beach['Advisory_Days'] +
+                                        county_beach['Closure_Days'])
+
+county_beach = county_beach.reset_index()
+```
+
+#### EPA Criteria (BEACH Act Standards)
+
+**Bacteria Thresholds:**
+- **E. coli** (freshwater): 235 CFU/100mL (geometric mean), 410 CFU/100mL (single sample maximum)
+- **Enterococci** (marine): 70 CFU/100mL (geometric mean), 130 CFU/100mL (single sample maximum)
+
+**Common Contamination Sources:**
+1. **Sewage overflows** (CSOs, SSOs)
+2. **Stormwater runoff** (urban, agricultural)
+3. **Septic system failures**
+4. **Wildlife fecal matter** (birds, mammals)
+5. **Wastewater treatment plant discharge**
+
+#### Health Outcome Linkage
+
+**Expected Associations:**
+
+```r
+# Link with CDC gastrointestinal illness data (if available at county level)
+library(tidycensus)
+
+# Get county population
+county_pop <- get_estimates(geography = "county",
+                            product = "population",
+                            year = 2023)
+
+# Hypothetical GI illness data
+# gi_illness <- read_csv("county_gi_illness.csv")
+
+beach_health <- county_beach %>%
+  left_join(county_pop, by = c("FIPS" = "GEOID")) %>%
+  # left_join(gi_illness, by = "FIPS") %>%
+  mutate(
+    # Exposure metrics
+    beach_exposure_index = impacted_beach_days / beaches_monitored,
+    high_contamination = exceedance_rate > 10,
+
+    # Rate per 100K
+    # gi_rate_per_100k = (gi_cases / value) * 100000,
+
+    # Exposure categories
+    contamination_level = case_when(
+      exceedance_rate > 20 ~ "High (>20% samples)",
+      exceedance_rate > 10 ~ "Medium (10-20%)",
+      exceedance_rate > 5 ~ "Low (5-10%)",
+      TRUE ~ "Minimal (<5%)"
+    )
+  )
+```
+
+#### Data Limitations
+
+⚠️ **Important Caveats:**
+1. **Voluntary reporting:** Not all beaches monitored; coverage varies by state
+2. **Monitoring frequency varies:** Some beaches sampled daily, others weekly
+3. **County-level only for coastal counties:** Inland counties without beaches have no data
+4. **Delayed reporting:** Data typically 6-12 months behind (annual submission)
+5. **No direct exposure assessment:** Beach closure ≠ actual swimmer illness
+6. **Reason for closure often "unknown":** Source tracking limited
+
+**Note:** BEACON focuses on bacterial contamination. Harmful Algal Blooms (HABs) are tracked separately by EPA CyAN (see other sources).
+
+#### High-Impact Counties
+
+**Counties with Most Beach Closures/Advisories (Typical Patterns):**
+- **Great Lakes:** Cook County, IL (Chicago beaches)
+- **California Coast:** Los Angeles, Orange, San Diego counties
+- **Florida Gulf:** Pinellas, Manatee counties
+- **Mid-Atlantic:** Ocean County, NJ; Monmouth County, NJ
+- **New England:** Suffolk County, MA (Boston Harbor)
+
+**Primary Causes:**
+- Urban stormwater runoff
+- Combined sewer overflows (CSOs)
+- Aging wastewater infrastructure
+
+#### Priority Variables for Health Studies
+
+**Tier 1 (Essential):**
+1. Number of beaches monitored
+2. Total advisory days per county
+3. Total closure days per county
+4. Exceedance rate (% samples above criteria)
+
+**Tier 2 (Enhanced):**
+5. Contamination source breakdown (sewage, stormwater, HABs)
+6. Monitoring frequency per beach
+7. Season length (exposure opportunity window)
+
+**Tier 3 (Advanced):**
+8. Beach attendance data (if available from state beach programs)
+9. Wastewater overflow data (EPA ECHO - sewage violations)
+10. Coastal development intensity (impervious surface)
+
+#### Related Data Sources
+
+**For comprehensive recreational water illness analysis, combine with:**
+- EPA CyAN Harmful Algal Blooms (see separate documentation)
+- NOAA Coastal HABs monitoring
+- USGS NWIS nearshore water quality (bacteria, nutrients)
+- State beach monitoring programs (more detailed data)
+- CDC NORS waterborne disease outbreaks (point-source events)
+
+---
+
 ## PART 3: SUPERFUND & CONTAMINATED SITES
 
 ### Health Impacts
