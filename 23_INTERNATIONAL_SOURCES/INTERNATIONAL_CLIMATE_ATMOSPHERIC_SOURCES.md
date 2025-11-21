@@ -1,7 +1,7 @@
 # International Climate & Atmospheric Data Sources
 ## High-Resolution Global Reanalysis + US-Specific Climate Data for County-Level Analysis
 
-**Last Updated:** November 12, 2025
+**Last Updated:** November 21, 2025
 **Status:** NEW - Gap Analysis identified critical climate/atmospheric data sources
 **Priority:** HIGHEST - Superior resolution and temporal coverage vs. NOAA NCEI station data
 
@@ -192,7 +192,8 @@ counties$ppt_20200101_in <- county_ppt / 25.4
 **Method 2: Population-Weighted Mean (for Temperature)**
 
 ```r
-# Load population grid (e.g., SEDAC GPW)
+# Load population grid (e.g., SEDAC GPW - NOTE: SEDAC terminated April 2025, archive-only)
+# Alternative: LandScan or WorldPop for population data
 population <- rast("gpw_v4_population_count_rev11_2020_30_sec.tif")
 
 # Resample population to PRISM grid
@@ -2015,7 +2016,8 @@ write_csv(st_drop_geometry(counties_with_data), "county_climate_annual.csv")
 
 **Step 5: Population-Weighted Aggregation (for Temperature)**
 ```r
-# Load population raster (e.g., SEDAC GPW, LandScan)
+# Load population raster (LandScan, WorldPop, or SEDAC GPW archive)
+# NOTE: NASA SEDAC terminated April 2025 - historical data available via NASA Earthdata Cloud
 population <- rast("gpw_v4_population_count_2020_30_sec.tif")
 
 # Resample population to match climate raster resolution

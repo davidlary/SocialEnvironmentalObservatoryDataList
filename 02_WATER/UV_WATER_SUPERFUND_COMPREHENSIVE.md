@@ -374,7 +374,7 @@ SDWIS is the official EPA database tracking compliance with the Safe Drinking Wa
 | **Inorganic Contaminants** | Arsenic (>0.010 mg/L), nitrate (>10 mg/L), fluoride, selenium, mercury | Cancer, methemoglobinemia |
 | **Organic Contaminants** | Pesticides, herbicides, solvents (benzene, vinyl chloride, TCE) | Cancer, liver/kidney damage |
 | **Radionuclides** | Uranium, radium, gross alpha | Cancer (lung, bone) |
-| **PFAS (2024+)** | PFOA, PFOS, PFHxS, PFNA, GenX (HFPO-DA), PFBS; Hazard Index | Cancer, developmental effects |
+| **PFAS (2024+)** | PFOA, PFOS (regulated 4 ppt); PFHxS, PFNA, GenX, PFBS rescinded May 2025 | Cancer, developmental effects |
 | **Microbiological** | Total coliform, E. coli presence | Acute GI illness, sepsis |
 | **Monitoring/Reporting Violations** | Failure to test or report results | Unknown water quality |
 | **Public Notification Violations** | Failure to notify consumers of violations | Information access |
@@ -442,25 +442,31 @@ county_violations <- health_violations %>%
 
 #### PFAS Regulations (2024)
 
-**Historic Change:** On April 10, 2024, EPA finalized the first-ever national drinking water standards for PFAS:
+**Historic Change:** On April 10, 2024, EPA finalized the first-ever national drinking water standards for PFAS.
 
-| PFAS Compound | Maximum Contaminant Level (MCL) |
-|---------------|--------------------------------|
-| PFOA (perfluorooctanoic acid) | 4 parts per trillion (ppt) |
-| PFOS (perfluorooctanesulfonic acid) | 4 ppt |
-| PFHxS (perfluorohexanesulfonic acid) | \* |
-| PFNA (perfluorononanoic acid) | \* |
-| HFPO-DA (GenX) | \* |
-| PFBS (perfluorobutanesulfonic acid) | \* |
+**May 2025 Regulatory Update:** ⚠️ On May 14, 2025, EPA announced a partial rollback of the 2024 PFAS rule:
 
-\* Regulated as a mixture using Hazard Index ≤1
+| PFAS Compound | Original MCL (April 2024) | Current Status (May 2025) |
+|---------------|---------------------------|---------------------------|
+| PFOA (perfluorooctanoic acid) | 4 ppt | **RETAINED at 4 ppt** |
+| PFOS (perfluorooctanesulfonic acid) | 4 ppt | **RETAINED at 4 ppt** |
+| PFHxS (perfluorohexanesulfonic acid) | 10 ppt (via Hazard Index) | **RESCINDED** |
+| PFNA (perfluorononanoic acid) | 10 ppt (via Hazard Index) | **RESCINDED** |
+| HFPO-DA (GenX) | 10 ppt (via Hazard Index) | **RESCINDED** |
+| PFBS (perfluorobutanesulfonic acid) | Part of Hazard Index | **RESCINDED** |
+| Hazard Index (mixture) | ≤1 | **RESCINDED** |
 
-**Compliance Timeline:**
-- **2027-2029:** Public water systems must complete initial monitoring
+**Current Regulatory Status (as of May 2025):**
+- **Only PFOA and PFOS remain regulated** at 4 parts per trillion (ppt)
+- Maximum Contaminant Level Goal (MCLG) remains zero for both
+- Four PFAS compounds (PFHxS, PFNA, GenX, PFBS) and the Hazard Index are no longer federally regulated
+
+**Compliance Timeline (Updated May 2025):**
+- **2027-2029:** Public water systems must complete initial monitoring (PFOA/PFOS only)
 - **2029:** Systems must notify the public of PFAS levels
-- **2031:** Systems must comply with PFAS MCLs
+- **2031:** Systems must comply with PFAS MCLs (extended from 2029; PFOA/PFOS only)
 
-**Implication:** PFAS violations data will begin appearing in SDWIS 2027-2031
+**Implication:** PFAS violations data in SDWIS will apply only to PFOA and PFOS (not PFHxS, PFNA, GenX, or PFBS)
 
 #### Data Quality
 
@@ -1321,7 +1327,7 @@ county_superfund <- superfund_prox %>%
 6. **Mean arsenic concentration (µg/L)** - USGS groundwater, most recent 10 years
 7. **Mean nitrate concentration (mg/L)** - USGS groundwater, most recent 10 years
 8. **% groundwater wells with detectable PFAS** - USGS 2024 model predictions
-9. **PFAS MCL violations (count)** - EPA SDWIS, 2027+ (future)
+9. **PFAS MCL violations (count)** - EPA SDWIS, 2027+ (PFOA/PFOS only; May 2025 rule)
 10. **Total coliform/E. coli violations** - EPA SDWIS, annual
 
 #### Superfund & Contaminated Sites (5 variables)

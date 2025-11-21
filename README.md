@@ -408,8 +408,8 @@ Despite limitations, this repository achieves ~**98% coverage** of available ope
 ## 📧 Contact & Contributions
 
 **Maintainer:** GetData Project
-**Last Updated:** November 13, 2025
-**Version:** 4.1 - Quarterly Maintenance Update (Q4 2025)
+**Last Updated:** November 21, 2025
+**Version:** 4.2 - Regulatory & Status Updates (Q4 2025)
 
 For questions, suggestions for additional data sources, or to report errors:
 - Open an issue in the repository
@@ -506,7 +506,8 @@ Complete maintenance documentation is available in the `.maintenance/` directory
 |-------------|---------|---------------|
 | 2025-11-13  | 4.0     | Initial comprehensive structure, NHGIS priority, asbestos, beach closures, maintenance framework |
 | 2025-11-13  | 4.1     | Q4 quarterly update: Census Gridded EIF added, temporal coverage updates, USGS NWIS transition |
-| [Future]    | 4.2     | [Next quarterly update] |
+| 2025-11-21  | 4.2     | Regulatory updates: PFAS standards rollback (May 2025), SO2/PM2.5 NAAQS, NASA SEDAC termination notes |
+| [Future]    | 4.3     | [Q1 2026 quarterly update] |
 
 **Next Scheduled Update:** February 2026 (Q1 Quarterly)
 

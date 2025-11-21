@@ -1,10 +1,14 @@
 # ATMOSPHERIC EMISSIONS, CHEMISTRY, GREENHOUSE GASES & AEROSOLS
 ## Comprehensive County-Level Data Sources
 
-**Last Updated**: November 12, 2025
+**Last Updated**: November 21, 2025
 **Research Focus**: County-level chemical emissions, atmospheric chemistry, greenhouse gases, and aerosol composition data
 **Geographic Coverage**: 3,143 US Counties
 **Status**: Comprehensive research completed
+
+**2025 Regulatory Updates:**
+- SO2 secondary NAAQS: New 10 ppb annual standard (effective Jan 27, 2025)
+- PM2.5 primary NAAQS: Under reconsideration (2024 rule set 9.0 μg/m³; decision Feb 2026)
 
 ---
 
